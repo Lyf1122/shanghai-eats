@@ -1022,6 +1022,16 @@ const AREAS = [
         desc: '福州来的海鲜集市火锅：进门先逛海鲜摊，现捞称重下锅，夜宵还有烧烤。',
         dpKeyword: '海大富 杨浦',
         detail: '海鲜柜台自选称重，锅底+烧烤全时段\n长阳路 1750 号大润发（长阳店）一带，近长阳创谷\n另有普陀店、宝山店' }
+    ]},
+
+  { id: 'pd', label: '浦东', color: '#00c7be',
+    name: '浦东 · 锦绣坊',
+    intro: '花木锦绣坊里的黑胶唱片酒吧，一杯酒一张碟的晚上。',
+    places: [
+      { name: 'PB fundamental 黑胶酒吧', type: 'bar', lat: 31.215980, lng: 121.542065, budget: '人均 180-200',
+        desc: '锦绣坊里的黑胶唱片主题酒吧，碟机放歌，坐下来喝一杯的晚上。',
+        dpKeyword: 'PB fundamental黑胶酒吧',
+        detail: '锦绣坊 305 号（浦东花木，近锦绣路/芳甸路）\n黑胶主题小酒馆，人均 180 左右\n营业时间以到店/点评为准' }
     ]}
 ];
 
@@ -1263,7 +1273,8 @@ function renderArea(a) {
 function overview() {
   const n = REG.length, areas = AREAS.length;
   const eat = REG.filter(p => p.type === 'food' || p.type === 'cafe' || p.type === 'bar').length;
-  const stroll = n - eat;
+  const bars = REG.filter(p => p.type === 'bar').length;
+  const strolls = REG.filter(p => p.type === 'spot' || p.type === 'shop').length;
 
   let h = '<div class="hero">' +
     '<div class="eyebrow">Shanghai · Eat &amp; Stroll</div>' +
@@ -1274,8 +1285,10 @@ function overview() {
   h += '<div class="info-grid">' +
     '<div class="info-card"><div class="label">收藏地点</div><div class="value">' + n + ' 处</div></div>' +
     '<div class="info-card"><div class="label">覆盖街区</div><div class="value">' + areas + ' 片</div></div>' +
-    '<div class="info-card"><div class="label">吃 · 咖啡</div><div class="value">' + eat + ' 家</div></div>' +
-    '<div class="info-card"><div class="label">逛 · 街区</div><div class="value">' + stroll + ' 处</div></div></div>';
+    '<div class="info-card"><div class="label">吃 · 喝</div><div class="value">' + eat + ' 家</div></div>' +
+    (bars > 0
+      ? '<div class="info-card"><div class="label">酒吧</div><div class="value">' + bars + ' 家</div></div>'
+      : '<div class="info-card"><div class="label">逛 · 街区</div><div class="value">' + strolls + ' 处</div></div>') + '</div>';
 
   h += '<div class="section-head">街区速览</div><div class="area-nav">' + AREAS.map(a => {
     const eatN = a.places.filter(p => p.type === 'food' || p.type === 'cafe' || p.type === 'bar').length;
@@ -1293,7 +1306,7 @@ function overview() {
 
   h += '<div class="section-head">逛吃心得</div>' +
     '<div class="note"><h4>错峰是第一生产力</h4>网红店饭点排队 1 小时起步：11:00 前或 14:00 后进场，或先在点评线上取号，人到了刚好叫号。</div>' +
-    '<div class="note"><h4>这一片靠走，跨片靠地铁</h4>衡复和徐家汇骑车或步行都顺；静安寺、外滩 BFC、杨浦各自成片，地铁直达（Metro 大都会 / 手机交通卡都行）。</div>';
+    '<div class="note"><h4>这一片靠走，跨片靠地铁</h4>衡复和徐家汇骑车或步行都顺；静安寺、外滩 BFC、杨浦、浦东锦绣坊各自成片，地铁/打车前往。</div>';
 
   h += '<div class="section-head">怎么加地点</div>' +
     '<div class="note"><h4>直接发我</h4>把「店名（最好带上大致位置或想去的理由）」发给我，我来查坐标、写推荐语并加进地图。</div>' +
